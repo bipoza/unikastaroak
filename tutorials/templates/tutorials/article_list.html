@@ -1,0 +1,10 @@
+ {% extends 'tutorials/base.html' %}
+ {% block content %}
+ {% for article in articles %}
+<div>
+    <h1  class="text-primary"><a href="{% url 'article_detail' pk=article.pk %}">{{ article.title }}</a></h1>
+    <p>{{ article.text|linebreaksbr }}</p>
+    <p>Egitaratuta: {{ article.published_date }}</p>
+</div>
+{% endfor %}
+{% endblock %}
