@@ -1,0 +1,21 @@
+{% extends 'tutorials/base.html' %}
+
+{% block content %}
+<br>
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+   <h1 class="text-danger text-uppercase font-weight-bold display-3">ZIRRIBORROAK <span class="badge badge-danger"> {{articles.count}} </span></h1> 
+
+    <p class="lead">Hemen publikatu gabeko artikuluak izango duzu eskura.</p>
+  </div>
+</div>
+    {% for article in articles %}
+        <div >
+            
+            <h1 class="text-primary text-uppercase"><b><a href="{% url 'article_detail' pk=article.pk %}">{{ article.title }}</a></b></h1>
+            <p>{{ article.text|truncatechars:200 }}</p>
+            <p class="date">Egitaratuta: {{ article.created_date|date:'d-m-Y' }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "tutorials/base.html" %} {% block content %} {% if user.is_authenticated %}
+<meta http-equiv="refresh" content="0; url=/" /> {% else %}
+<div class="row">
+    <div class="col-md-6">
+        {% if form.errors %}
+        <p>Zure erabiltzailea edo pasahitza ez dira zuzenak. Saiatu berriro.</p>
+        {% endif %}
+        <br>
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label class="text-primary font-weight-bold">{{ form.username.label_tag }}</label>
+                <br> {{ form.username }}
+            </div>
+            <div class="form-group">
+                <label class="text-primary font-weight-bold">{{ form.password.label_tag }}</label>
+                <br> {{ form.password }}
+            </div>
+
+            <input type="submit" value="Erregistratu" class="btn btn-primary" />
+           
+        </form>
+    </div>
+    <div class="col-md-6">
+        <br>
+        <p class="text-primary font-weight-bold">Ez duzu konturik? Erregistratu hemen</p> <a href="{% url 'register' %}" class="btn btn-primary">Erregistratu</a>
+    </div>
+</div>
+{% endif %} {% endblock %}

@@ -1,0 +1,8 @@
+ {% extends 'tutorials/base.html' %}
+ {% block content %}
+ <br>
+ {% for category in categories %}
+    <h1  class="text-primary text-uppercase text-center"><b><a href="{% url 'article_list_catergory' categoryParam=category %}">{{category}}</a></b></h1>
+<hr>
+{% endfor %}
+{% endblock %}

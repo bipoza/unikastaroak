@@ -1,18 +1,28 @@
- {% extends 'tutorials/base.html' %}
+ {% extends 'tutorials/base.html' %} 
  {% block content %}
-<h1>Tutorial berria</h1>
+<h1 class=" display-1 text-primary font-weight-bold">Tutorial berria</h1>
 
-<form  method="POST">
+<form method="POST" role="form">
     {% csrf_token %}
-  <div class="form-group">
-    <label for="exampleInputEmail1">Izenburua</label>
-     {{ form.title }}
-  </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Edukia </label>
-{{ form.text }}
-  </div>
-  <button type="submit" class="btn btn-primary">Gorde</button>
+    <div class="form-group">
+        <label class="text-primary font-weight-bold">Izenburua</label> {{ form.title }}
+    </div>
+    <div class="form-group">
+        <label class="text-primary font-weight-bold">Edukia </label> {{ form.text }}
+    </div>
+    <div class="form-group">
+        <label class="text-primary font-weight-bold">Kategoria </label> {{ form.category }}
+    </div>
+    <div class="form-group">
+        <label class="text-primary font-weight-bold">Google Drive URL </label> <a class="btn btn-outline-primary" href="https://drive.google.com/drive/my-drive" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a>
+        {{ form.drive_url }}
+    </div>
+    <div class="form-group">
+        <label class="text-primary font-weight-bold">Intereseko url </label>
+        {{ form.url }}
+    </div>
+
+    <button type="submit" class="btn btn-primary">Gorde</button>
 </form>
 {% endblock %}
-  
+ 

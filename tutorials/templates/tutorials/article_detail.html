@@ -1,15 +1,65 @@
-{% extends 'tutorials/base.html' %}
+{% extends 'tutorials/base.html' %} {% block content %}
 
-{% block content %}
+<div class="row">
+    <div class="col-md-8 p-3 mb-2">
+        <h1 class="text-primary text-uppercase"><b>{{ article.title }}</b> <span class="text-muted float-right text-capitalize">{{article.author}}</span></h1>
 
-    <div>
-        {% if article.published_date %}
-            <div class="date">
-                {{ article.published_date }}
-            </div>
+        {% if request.user.is_authenticated %}
+        {% if user.id == article.author_id%}
+        <a class="btn btn-danger float-right" href="{% url 'article_remove' pk=article.pk %}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+        <a href="{% url 'article_edit' pk=article.pk %}" class="btn btn-primary float-right"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+        {% if not article.published_date %}
+        <a class="btn btn-primary float-right" href="{% url 'article_publish' pk=article.pk %}"><i class="fa fa-cloud-upload" aria-hidden="true"></i></a>
         {% endif %}
-         <a class="btn btn-default" href="{% url 'article_edit' pk=article.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
-        <h1  class="text-primary">{{ article.title }}</h1>
         <p>{{ article.text|linebreaksbr }}</p>
+        {% if article.published_date %}
+        <div class="float-right">
+            {{ article.published_date }}
+        </div>
+        {% endif%}
+        {%endif%}
+        {% else %}
+           <div class="alert alert-danger" role="alert">
+  Sesioa hasi edukia ikusteko <a href="{% url 'login' %}" class="alert-link">Klik egin hemen</a>. 
+</div>
+         {%endif%}
+        
+ 
     </div>
+
+{% if request.user.is_authenticated %}
+    <div class="col-md-4 p-3 mb-2 bg-info">
+        <h1 class="text-primary text-light">Intereseko estekak</h1>
+        {% if article.url %}
+        <div class="row">
+            <div class="col-md-10">
+                <h4 class="text-light">Intereseko esteka --></h4>
+            </div>
+            <div class="col-md-2">
+                <a href="{{article.url}}" target="_blank" class="btn btn-light float-right"><i class="fa fa-external-link" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        {% endif %}
+        {% if article.drive_url %}
+        <div class="row">
+            <div class="col-md-10">
+                <h4 class="text-light">Google Drive --></h4>
+            </div>
+            <div class="col-md-2">
+                <a href="{{article.drive_url}}" target="_blank" class="btn btn-light float-right"><i class="fa fa-external-link" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        {% endif %}
+        
+        {% if not article.drive_url and not article.url %}
+         <div class="row">
+            <div class="col-md-12">
+                <h4 class="text-light">Ez dago estekarik...</h4>
+            </div>
+            <div class="col-md-2">
+         
+        </div>
+        {% endif %}
+{%endif%}
+</div>
 {% endblock %}

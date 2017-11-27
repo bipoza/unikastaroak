@@ -1,0 +1,51 @@
+{% extends 'tutorials/base.html' %} {% block content %}
+<div class="row user-menu-container square">
+    <div class="col-md-7 user-details">
+        <div class="row coralbg white">
+            <div class="col-md-6 no-pad">
+                <div class="user-pad">
+                    <h3>Ongi etorri, {{ user.username }}</h3>
+                    <h4 class="white"><i class="fa fa-user" aria-hidden="true"></i> {{ user.first_name }}  {{user.last_name}}</h4>
+               
+                    <!--<form method="post">-->
+                    <!--    {% csrf_token %} {{ form.username }} {{ form.first_name }} {{ form.last_name }} {{ form.email }} {{ form.password }}-->
+                    <!--    <button class="btn btn-primary btn-block" type="submit">Eguneratu</button>-->
+                    <!--</form>-->
+                   <a href="mailto:{{user.email}}" class="text-white"> <i class="fa fa-envelope-o" aria-hidden="true"></i> {{user.email}}</a>
+                </div>
+            </div>
+            <div class="col-md-6 no-pad">
+              
+                    <img src="https://api.adorable.io/avatars/285/{{user.username}}.png" class="img-responsive thumbnail">
+           
+            </div>
+        </div>
+        <div class="row overview">
+            <div class="col-md-4 user-pad text-center">
+                 <a class="btn btn-outline-primary" href="{% url 'user_articles' username=user.username %}">
+                <h3>ARTIKULUAK</h3>
+                <h4>{{ userArticles.count }}</h4>
+                </a>
+            </div>
+            <div class="col-md-4 user-pad text-center">
+                <a class="btn btn-outline-danger" href="{% url 'article_draft_list' %}">
+                    <h3>ZIRRIBORROAK</h3>
+                    <h4>{{userArticlesDrafts.count}}</h4>
+                </a>
+            </div>
+            <div class="col-md-4 user-pad text-center">
+                <h3>APPRECIATIONS</h3>
+                <h4>4,901</h4>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 user-menu user-pad">
+        <h3>Azken artikuluak</h3>
+        {% for article in userArticles %}
+        <h3 class="text-primary"> <a href="{% url 'article_detail' pk=article.pk %}">  {{article.title}} </a> </h3>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}

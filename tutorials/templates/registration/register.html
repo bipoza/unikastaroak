@@ -1,0 +1,17 @@
+{% extends 'tutorials/base.html' %}
+
+{% block content %}
+ {% if user.is_authenticated %}
+<meta http-equiv="refresh" content="0; url=/" />
+
+{% else %}
+<br>
+  <h2 class=" text-primary font-weight-bold">Erregistratu</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <br>
+    <button type="submit" class="btn btn-primary">Erregistratu</button>
+  </form>
+  {% endif %}
+{% endblock %}
