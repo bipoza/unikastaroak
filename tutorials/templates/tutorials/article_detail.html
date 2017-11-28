@@ -11,12 +11,13 @@
         {% if not article.published_date %}
         <a class="btn btn-primary float-right" href="{% url 'article_publish' pk=article.pk %}"><i class="fa fa-cloud-upload" aria-hidden="true"></i></a>
         {% endif %}
+          {% endif%}
         <p>{{ article.text|linebreaksbr }}</p>
         {% if article.published_date %}
         <div class="float-right">
             {{ article.published_date }}
         </div>
-        {% endif%}
+      
         {%endif%}
         {% else %}
            <div class="alert alert-danger" role="alert">
