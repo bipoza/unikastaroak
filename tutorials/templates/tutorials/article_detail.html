@@ -2,14 +2,15 @@
 
 <div class="row">
     <div class="col-md-8 p-3 mb-2">
-        <h1 class="text-primary text-uppercase"><b>{{ article.title }}</b> <span class="text-muted float-right text-capitalize">{{article.author}}</span></h1>
-
+        <div class="row">
+        <h1 class="text-primary text-uppercase"><b>{{ article.title }}</b> <a href=" {% url 'profile' username=article.author %} "><span class="text-muted float-right text-capitalize">{{article.author}}</span></a></h1>
+</div>
         {% if request.user.is_authenticated %}
         {% if user.id == article.author_id%}
         <a class="btn btn-danger float-right" href="{% url 'article_remove' pk=article.pk %}"><i class="fa fa-trash" aria-hidden="true"></i></a>
-        <a href="{% url 'article_edit' pk=article.pk %}" class="btn btn-primary float-right"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+        <a href="{% url 'article_edit' pk=article.pk %}" class="btn btn-warning float-right"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
         {% if not article.published_date %}
-        <a class="btn btn-primary float-right" href="{% url 'article_publish' pk=article.pk %}"><i class="fa fa-cloud-upload" aria-hidden="true"></i></a>
+        <a class="btn btn-info float-right" href="{% url 'article_publish' pk=article.pk %}"><i class="fa fa-cloud-upload" aria-hidden="true"></i></a>
         {% endif %}
           {% endif%}
         <p>{{ article.text|linebreaksbr }}</p>
@@ -17,15 +18,15 @@
         <div class="float-right">
             {{ article.published_date }}
         </div>
-      
+
         {%endif%}
         {% else %}
            <div class="alert alert-danger" role="alert">
-  Sesioa hasi edukia ikusteko <a href="{% url 'login' %}" class="alert-link">Klik egin hemen</a>. 
+  Sesioa hasi edukia ikusteko <a href="{% url 'login' %}" class="alert-link">Klik egin hemen</a>.
 </div>
          {%endif%}
-        
- 
+
+
     </div>
 
 {% if request.user.is_authenticated %}
@@ -51,14 +52,14 @@
             </div>
         </div>
         {% endif %}
-        
+
         {% if not article.drive_url and not article.url %}
          <div class="row">
             <div class="col-md-12">
                 <h4 class="text-light">Ez dago estekarik...</h4>
             </div>
             <div class="col-md-2">
-         
+
         </div>
         {% endif %}
 {%endif%}

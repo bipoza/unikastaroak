@@ -3,7 +3,7 @@
  <br>
  {% for article in articles %}
 <div>
-    <h1  class="text-primary text-uppercase"><b><a href="{% url 'article_detail' pk=article.pk %}">{{ article.title }}</a></b> <span class="text-muted float-right text-capitalize">{{article.author}}</span></h1>
+    <h1  class="text-primary text-uppercase"><b><a href="{% url 'article_detail' pk=article.pk %}">{{ article.title }}</a></b> <a href=" {% url 'profile' username=article.author %} "><span class="text-muted float-right text-capitalize">{{article.author}}</span></a></h1>
     <p>{{ article.text|linebreaksbr|truncatechars:1000 }}</p>
     <p class="float-right">Egitaratuta: {{ article.published_date }}</p>
     <br>

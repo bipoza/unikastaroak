@@ -8,7 +8,8 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from .models import categories
-
+# coding: utf-8
+# -*- coding: utf-8 -*-
 # Create your views here.
 def article_list(request):
     articles = Article.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
@@ -32,12 +33,12 @@ def article_new(request):
     else:
         form = ArticleForm()
     return render(request, 'tutorials/article_edit.html', {'form':form})
-    
+
 @login_required
 def article_edit(request, pk):
     article = get_object_or_404(Article, pk=pk)
     current_user = request.user
-    if current_user.id == article.author_id: 
+    if current_user.id == article.author_id:
         if request.method == "POST":
             form = ArticleForm(request.POST, instance=article)
             if form.is_valid():
@@ -47,26 +48,26 @@ def article_edit(request, pk):
                 return redirect('article_detail', pk=article.pk)
         else:
             form = ArticleForm(instance=article)
-        
+
         return render(request, 'tutorials/article_edit.html', {'form': form})
     else:
         return redirect('/')
-        
-    
-    
+
+
+
 @login_required
 def article_draft_list(request):
     if request.user.is_authenticated():
         userid = request.user.id
     articles = Article.objects.filter(published_date__isnull=True, author_id=userid).order_by('created_date')
     return render(request, 'tutorials/articles_draft_list.html', {'articles': articles})
-    
+
 def article_publish(request, pk):
     article = get_object_or_404(Article, pk=pk)
     article.published_date = timezone.now()
     article.save()
-    return redirect('article_detail', pk=pk)   
-    
+    return redirect('article_detail', pk=pk)
+
 def article_remove(request, pk):
     article = get_object_or_404(Article, pk=pk)
     article.delete()
@@ -84,7 +85,7 @@ def signup(request):
     else:
         form = CreateUserForm()
     return render(request, 'registration/register.html', {'form': form})
-    
+
 def profile(request, username):
     user = User.objects.get(username=username)
     userArticles = Article.objects.filter(author_id=user.id).filter(published_date__isnull=False).order_by('-published_date')
@@ -96,7 +97,7 @@ def user_articles(request, username):
     user = User.objects.get(username=username)
     articles= Article.objects.filter(author_id=user.id).exclude(published_date__isnull=True)
     return render(request, 'tutorials/article_list.html',{'articles':articles})
-    
+
 def categories_list(request):
     categories= Article.objects.exclude(category__isnull=True).values_list('category', flat=True).distinct()
     return render(request, 'tutorials/categories_list.html',{'categories':categories})
